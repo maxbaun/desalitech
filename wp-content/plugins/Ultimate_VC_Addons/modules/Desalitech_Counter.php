@@ -3,9 +3,9 @@
 * Add-on Name: Stats Counter for Visual Composer
 * Add-on URI: http://dev.brainstormforce.com
 */
-if(!class_exists('AIO_Stats_Counter'))
+if(!class_exists('Desalitech_Counter'))
 {
-	class AIO_Stats_Counter
+	class Desalitech_Counter
 	{
 		// constructor
 		function __construct()
@@ -33,14 +33,15 @@ if(!class_exists('AIO_Stats_Counter'))
 		// initialize the mapping function
 		function counter_init()
 		{
+
 			if(function_exists('vc_map'))
 			{
 				// map with visual
 				vc_map(
 					array(
-					   "name" => __("Counter","ultimate_vc"),
-					   "base" => "stat_counter",
-					   "class" => "vc_stats_counter",
+					   "name" => __("Desalitech Counter","ultimate_vc"),
+					   "base" => "desalitech_counter",
+					   "class" => "vc_desalitech_counter",
 					   "icon" => "vc_icon_stats",
 					   "category" => "Ultimate VC Addons",
 					   "description" => __("Your milestones, achievements, etc.","ultimate_vc"),
@@ -311,6 +312,14 @@ if(!class_exists('AIO_Stats_Counter'))
 								"param_name" => "initial_start_value",
 								"value" => 0,
 								"description" => __("What is the initial start value?", "ultimate_vc")
+							),
+						  array(
+								"type" => "number",
+								"class" => "",
+								"heading" => __("Change Rate", "ultimate_vc"),
+								"param_name" => "change_rage",
+								"value" => 0,
+								"description" => __("What is the rate of change per second?", "ultimate_vc")
 							),
 						 //  array(
 							// 	"type" => "number",
@@ -829,11 +838,11 @@ if(!class_exists('AIO_Stats_Counter'))
 		}
 	}
 }
-if(class_exists('AIO_Stats_Counter'))
+if(class_exists('Desalitech_Counter'))
 {
-	$AIO_Stats_Counter = new AIO_Stats_Counter;
+	$AIO_Desilatech_Counter = new Desalitech_Counter;
 }
 if ( class_exists( 'WPBakeryShortCode' ) ) {
-    class WPBakeryShortCode_stat_counter extends WPBakeryShortCode {
+    class WPBakeryShortCode_desalitech_counter extends WPBakeryShortCode {
     }
 }
