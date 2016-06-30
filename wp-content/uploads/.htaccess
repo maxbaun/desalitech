@@ -1,0 +1,6 @@
+# Attempt to load files from production if they're not in our local version
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule (.*) http://redesign.desalitech.com/wp-content/uploads/$1
