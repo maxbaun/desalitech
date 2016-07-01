@@ -1,0 +1,56 @@
+/**
+* All of the CSS for your public-facing functionality should be
+* included in this file.
+*/
+
+.desalitech-scroll-to{
+
+}
+.desalitech-scroll-to{
+    position: relative;
+}
+.desalitech-scroll-to .arrow{
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -15px;
+    bottom: -15px;
+    width: 30px;
+    height: 30px;
+    z-index: 999;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.desalitech-scroll-to .button{
+    position: absolute;
+    display: block;
+    left: 50%;
+    bottom: 5px;
+    z-index: 9999;
+    margin-left: -45px;
+    border-left: 45px solid transparent;
+    border-right: 45px solid transparent;
+    border-top: 45px solid transparent;
+    -webkit-animation:moveupdown .6s infinite alternate;
+    -moz-animation:moveupdown .6s infinite alternate;
+    animation:moveupdown .6s infinite alternate;
+}
+.desalitech-scroll-to .button.bounce{
+    bottom: 15px;
+}
+
+@-webkit-keyframes moveupdown {
+    0%, 10% { transform: translateY(0); }
+    90%, 100% { transform: translateY(-10px); }
+}
+@-moz-keyframes moveupdown {
+    0%, 10% { transform: translateY(0); }
+    90%, 100% { transform: translateY(-10px); }
+}
+@-keyframes moveupdown {
+    0%, 10% { transform: translateY(0); }
+    90%, 100% { transform: translateY(-10px); }
+}

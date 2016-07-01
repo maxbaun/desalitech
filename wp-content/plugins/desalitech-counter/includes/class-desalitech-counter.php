@@ -300,14 +300,6 @@ class Desalitech_Counter {
 					  array(
 						 "type" => "textfield",
 						 "class" => "",
-						 "heading" => __("Counter Value", "ultimate_vc"),
-						 "param_name" => "counter_value",
-						 "value" => "1250",
-						 "description" => __("Enter number for counter without any special character. You may enter a decimal number. Eg 12.76", "ultimate_vc")
-					  ),
-					  array(
-						 "type" => "textfield",
-						 "class" => "",
 						 "heading" => __("Thousands Separator", "ultimate_vc"),
 						 "param_name" => "counter_sep",
 						 "value" => ",",
@@ -338,17 +330,6 @@ class Desalitech_Counter {
 						 "description" => __("Enter suffix for counter value", "ultimate_vc")
 					  ),
 					  array(
-							"type" => "number",
-							"class" => "",
-							"heading" => __("Counter rolling time", "ultimate_vc"),
-							"param_name" => "speed",
-							"value" => 3,
-							"min" => 1,
-							"max" => 10,
-							"suffix" => "seconds",
-							"description" => __("How many seconds the counter should roll?", "ultimate_vc")
-						),
-					  array(
 							"type" => "datetimepicker",
 							"class" => "",
 							"heading" => __("Initial Start Date", "ultimate_vc"),
@@ -368,10 +349,59 @@ class Desalitech_Counter {
 							"type" => "number",
 							"class" => "",
 							"heading" => __("Change Rate", "ultimate_vc"),
-							"param_name" => "change_rage",
-							"value" => 0,
+							"param_name" => "change_rate",
+							"value" => 1,
 							"description" => __("What is the rate of change per second?", "ultimate_vc")
 						),
+					  array(
+							"type" => "number",
+							"class" => "",
+							"heading" => __("Height", "ultimate_vc"),
+							"param_name" => "height",
+							"value" => 270,
+							"description" => __("Height of the counter?", "ultimate_vc")
+						),
+					  array(
+							"type" => "number",
+							"class" => "",
+							"heading" => __("Width", "ultimate_vc"),
+							"param_name" => "width",
+							"value" => 270,
+							"description" => __("Width of the counter?", "ultimate_vc")
+						),
+						array(
+							"type" => "colorpicker",
+							"param_name" => "border_color",
+							"heading" => __("Bordor Color","ultimate_vc"),
+							"description" => __("Select border color you want for the counter.", "ultimate_vc"),
+						),
+						array(
+							"type" => "colorpicker",
+							"param_name" => "border_alternate_color",
+							"heading" => __("Bordor Alternate Color","ultimate_vc"),
+							"description" => __("Select alternate border color you want for the counter.", "ultimate_vc"),
+						),
+						array(
+  							"type" => "number",
+  							"class" => "",
+  							"heading" => __("Border Width", "ultimate_vc"),
+  							"param_name" => "border_width",
+  							"value" => 1,
+  							"description" => __("Select border color you want for the counter.", "ultimate_vc")
+  						),
+						array(
+							"type" => "colorpicker",
+							"param_name" => "dot_color",
+							"heading" => __("Dot Color","ultimate_vc"),
+							"description" => __("Select the color for the rotating dot.", "ultimate_vc"),
+						),
+						array(
+							"type" => "colorpicker",
+							"param_name" => "dot_box_shadow_color",
+							"heading" => __("Dot Box Shadow Color","ultimate_vc"),
+							"description" => __("Select the color for the rotating dot.", "ultimate_vc"),
+						),
+
 					 //  array(
 						// 	"type" => "number",
 						// 	"class" => "",
@@ -647,12 +677,14 @@ class Desalitech_Counter {
 		//wp_enqueue_script('ultimate-custom');
 		//wp_enqueue_script('front-js',plugins_url('../assets/min-js/countUp.min.js',__FILE__));
 
-		$icon_type = $icon_img = $img_width = $icon = $icon_color = $icon_color_bg = $icon_size = $icon_style = $icon_border_style = $icon_border_radius = $icon_color_border = $icon_border_size = $icon_border_spacing = $icon_link = $el_class = $icon_animation = $counter_title = $counter_value = $icon_position = $counter_style = $font_size_title = $font_size_counter = $counter_font = $title_font = $speed = $counter_sep = $counter_suffix = $counter_prefix = $counter_decimal = $counter_color_txt = $desc_font_line_height = $title_font_line_height = '';
+		$icon_type = $icon_img = $img_width = $icon = $icon_color = $icon_color_bg = $icon_size = $icon_style = $icon_border_style = $icon_border_radius = $icon_color_border = $icon_border_size = $icon_border_spacing = $icon_link = $el_class = $icon_animation = $counter_title = $initial_start_value = $icon_position = $counter_style = $font_size_title = $font_size_counter = $counter_font = $title_font = $change_rate = $initial_start_date = $counter_sep = $counter_suffix = $counter_prefix = $counter_decimal = $counter_color_txt = $desc_font_line_height = $title_font_line_height = '';
 		$title_font = $title_font_style = $title_font_size = $title_font_color = $desc_font = $desc_font_style = $desc_font_size = $desc_font_color = $suf_pref_typography = $suf_pref_font = $suf_pref_font_style = $suf_pref_font_color = $suf_pref_font_size = $suf_pref_line_height = '';
 		extract(shortcode_atts( array(
 			'icon_type' => 'selector',
 			'icon' => '',
 			'icon_img' => '',
+			'height' => '270',
+			'width' => '270',
 			'img_width' => '48',
 			'icon_size' => '32',
 			'icon_color' => '#333333',
@@ -666,14 +698,15 @@ class Desalitech_Counter {
 			'icon_link' => '',
 			'icon_animation' => '',
 			'counter_title' => '',
-			'counter_value' => '1250',
+			'initial_start_value' => '0',
+			'initial_start_date' => '',
+			'change_rate'=>'3',
 			'counter_sep' => ',',
 			'counter_suffix' => '',
 			'counter_prefix' => '',
 			'counter_decimal' => '.',
 			'icon_position'=>'top',
 			'counter_style'=>'',
-			'speed'=>'3',
 			'font_size_title' => '18',
 			'font_size_counter' => '28',
 			'counter_color_txt' => '',
@@ -693,6 +726,11 @@ class Desalitech_Counter {
 			'suf_pref_line_height' =>'',
 			'suf_pref_font_style' =>'',
 			'css_stat_counter' => '',
+			'border_color' => '',
+			'border_alternate_color' => '',
+			'border_width' => '1',
+			'dot_color' => '',
+			'dot_box_shadow_color' => '10',
 		),$atts));
 		$css_stat_counter = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $css_stat_counter, ' ' ), "stat_counter", $atts );
 		$css_stat_counter = esc_attr( $css_stat_counter );
@@ -842,31 +880,72 @@ class Desalitech_Counter {
 			$class.= ' '.$el_class;
 		$ic_position = 'stats-'.$icon_position;
 		$ic_class = 'aio-icon-'.$icon_position;
-		$output = '<div class="stats-block '.$ic_position.' '.$class.' '.$css_stat_counter.'">';
+
+		$el_style = '';
+
+		$border_style = '';
+		$border_style .= ' border-color: '.$border_alternate_color.'; ';
+		if(isset($border_width) && $border_width != ''){
+			$border_style .= ' border-width: ' . $border_width . 'px;';
+		}
+		if(isset($border_color) && $border_color != ''){
+			$border_style .= ' border-left-color: ' . $border_color . ';';
+		}
+
+		// $delay = rand(0, 10) / 10;
+		// $border_style .= '
+		// 	animation-delay: '.$delay.'s;
+		// 	-moz-animation-delay: '.$delay.'s;
+		// 	-webkit-animation-delay: '.$delay.'s;
+		// ';
+
+
+
+		$dot_style = '';
+		if(isset($dot_color) && $dot_color != ''){
+			$dot_style .= ' background-color: ' . $dot_color . ';';
+			$dot_style .= '
+				box-shadow: 0px 0px 10px 6px '.$dot_box_shadow_color.';
+				-moz-box-shadow: 0px 0px 10px 6px '.$dot_box_shadow_color.';
+				-webkit-box-shadow: 0px 0px 10px 6px '.$dot_box_shadow_color.';
+				-o-box-shadow: 0px 0px 10px 6px '.$dot_box_shadow_color.';
+			';
+		}
+
+		$el_style .= ' width: ' . $width . 'px; height: ' . $height . 'px; ';
+
+		$output = '<div class="desalitech-counter '.$ic_position.' '.$class.' '.$css_stat_counter.'" style="'.$el_style.'">';
+			$output .= '<div class="border-container">';
+				$output .= '<div class="border" style="'.$border_style.'">';
+					$output .= '<span class="dot" style="'.$dot_style.'"></span>';
+				$output .= '</div>';
+			$output .= '</div>';
 			//$output .= '<div class="stats-icon" style="'.$style.'">
 			//				<i class="'.$stats_icon.'"></i>
 			//			</div>';
-			$id = 'counter_'.uniqid(rand());
-			if($counter_sep == ""){
-				$counter_sep = 'none';
-			}
-			if($counter_decimal == ""){
-				$counter_decimal = 'none';
-			}
-			if($icon_position !== "right")
-				$output .= '<div class="'.$ic_class.'">'.$stats_icon.'</div>';
-			$output .= '<div class="stats-desc" id="'.$counter_resp_id.'">';
-				if($counter_prefix !== ''){
-					$output .= '<div class="counter_prefix mycust ult-responsive" '.$stats_counter_sufpref_data_list.' style="'.$counter_font.' '.$suf_pref_style.'">'.$counter_prefix.'</div>';
+			$output .= '<div class="vertical-center">';
+				$id = 'counter_'.uniqid(rand());
+				if($counter_sep == ""){
+					$counter_sep = 'none';
 				}
-				$output .= '<div id="'.$id.'" data-id="'.$id.'" '.$stats_counter_val_data_list.' class="stats-number ult-responsive" style="'.$counter_font.' '.$counter_color.' '.$desc_style.'" data-speed="'.$speed.'" data-counter-value="'.$counter_value.'" data-separator="'.$counter_sep.'" data-decimal="'.$counter_decimal.'">0</div>';
-				if($counter_suffix !== ''){
-					$output .= '<div class="counter_suffix mycust ult-responsive" '.$stats_counter_sufpref_data_list.' style="'.$counter_font.' '.$suf_pref_style.'">'.$counter_suffix.'</div>';
+				if($counter_decimal == ""){
+					$counter_decimal = 'none';
 				}
-				$output .= '<div '.$counter_resp_id.' '.$stats_counter_data_list.' class="stats-text ult-responsive" style="'.$title_font.' '.$counter_color.' '.$title_style.'">'.$counter_title.'</div>';
+				if($icon_position !== "right")
+					$output .= '<div class="'.$ic_class.'">'.$stats_icon.'</div>';
+				$output .= '<div class="stats-desc" id="'.$counter_resp_id.'">';
+					if($counter_prefix !== ''){
+						$output .= '<div class="counter_prefix mycust ult-responsive" '.$stats_counter_sufpref_data_list.' style="'.$counter_font.' '.$suf_pref_style.'">'.$counter_prefix.'</div>';
+					}
+					$output .= '<div id="'.$id.'" data-id="'.$id.'" '.$stats_counter_val_data_list.' class="stats-number ult-responsive" style="'.$counter_font.' '.$counter_color.' '.$desc_style.'" data-start-date="'.$initial_start_date.'" data-start-value="'.$initial_start_value.'" data-change-rate="'.$change_rate.'" data-separator="'.$counter_sep.'" data-decimal="'.$counter_decimal.'">0</div>';
+					if($counter_suffix !== ''){
+						$output .= '<div class="counter_suffix mycust ult-responsive" '.$stats_counter_sufpref_data_list.' style="'.$counter_font.' '.$suf_pref_style.'">'.$counter_suffix.'</div>';
+					}
+					$output .= '<div '.$counter_resp_id.' '.$stats_counter_data_list.' class="stats-text ult-responsive" style="'.$title_font.' '.$counter_color.' '.$title_style.'">'.$counter_title.'</div>';
+				$output .= '</div>';
+				if($icon_position == "right")
+					$output .= '<div class="'.$ic_class.'">'.$stats_icon.'</div>';
 			$output .= '</div>';
-			if($icon_position == "right")
-				$output .= '<div class="'.$ic_class.'">'.$stats_icon.'</div>';
 		$output .= '</div>';
 		$is_preset = false; //Display settings for Preset
 		if(isset($_GET['preset'])) {
@@ -931,6 +1010,23 @@ class Desalitech_Counter {
 
 		$this->loader = new Desalitech_Counter_Loader();
 
+	}
+
+	function hex2rgb($hex) {
+	   $hex = str_replace("#", "", $hex);
+
+	   if(strlen($hex) == 3) {
+	      $r = hexdec(substr($hex,0,1).substr($hex,0,1));
+	      $g = hexdec(substr($hex,1,1).substr($hex,1,1));
+	      $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+	   } else {
+	      $r = hexdec(substr($hex,0,2));
+	      $g = hexdec(substr($hex,2,2));
+	      $b = hexdec(substr($hex,4,2));
+	   }
+	   $rgb = array($r, $g, $b);
+	   //return implode(",", $rgb); // returns the rgb values separated by commas
+	   return $rgb; // returns an array with the rgb values
 	}
 
 	/**
