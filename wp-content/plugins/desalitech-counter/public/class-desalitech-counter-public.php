@@ -61,6 +61,7 @@ class Desalitech_Counter_Public {
 	 */
 	public function enqueue_styles() {
 
+		wp_enqueue_style( 'ultimate-css', plugin_dir_url( __FILE__ ) . 'css/ultimate.min.css', array(), $this->version, 'all' );
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/desalitech-counter-public.css', array(), $this->version, 'all' );
 
 	}
@@ -71,7 +72,7 @@ class Desalitech_Counter_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-
+		wp_enqueue_script( 'ultimate-js', plugin_dir_url( __FILE__ ) . 'js/ultimate.min.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/desalitech-counter-public.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( 'moment-js', plugin_dir_url( __FILE__ ) . 'js/moment.js', array( 'jquery' ), $this->version, true );
 

@@ -33,39 +33,41 @@
 
 		 function init(){
 			 $('.desalitech-counter').each(function() {
-					 var endNum = parseFloat(jQuery(this).find('.stats-number').data('counter-value'));
-					 var startValue = (jQuery(this).find('.stats-number').data('startValue'))+' ';
-					 var startDate = new moment((jQuery(this).find('.stats-number').data('startDate'))+' ');
-					 var speed = parseFloat(jQuery(this).find('.stats-number').data('changeRate'));
-					 var speedStr = speed.toString();
-					 var ID = jQuery(this).find('.stats-number').data('id');
-					 var sep = jQuery(this).find('.stats-number').data('separator');
-					 var dec = jQuery(this).find('.stats-number').data('decimal');
-					 var dec_count = speedStr.split(".");
-					 if(dec_count[1]){
-						 dec_count = dec_count[1].length-1;
-					 } else {
-						 dec_count = 0;
-					 }
-					 var grouping = true;
-					 if(dec == "none"){
-						 dec = "";
-					 }
-					 if(sep == "none"){
-						 grouping = false;
-					 } else {
-						 grouping = true;
-					 }
-					 var settings = {
-						 useEasing : true,
-						 useGrouping : grouping,
-						 separator : sep,
-						 decimal : dec
-					 }
-					 var counter = new desalitechCounterInit(ID, startValue, startDate, dec_count, speed, settings);
-					 setTimeout(function(){
-						 counter.start();
-					 },500);
+				 $(this).bsf_appear(function(){
+						 var endNum = parseFloat(jQuery(this).find('.stats-number').data('counter-value'));
+						 var startValue = (jQuery(this).find('.stats-number').data('startValue'))+' ';
+						 var startDate = moment((jQuery(this).find('.stats-number').data('startDate'))+' ');
+						 var speed = parseFloat(jQuery(this).find('.stats-number').data('changeRate'));
+						 var speedStr = speed.toString();
+						 var ID = jQuery(this).find('.stats-number').data('id');
+						 var sep = jQuery(this).find('.stats-number').data('separator');
+						 var dec = jQuery(this).find('.stats-number').data('decimal');
+						 var dec_count = speedStr.split(".");
+						 if(dec_count[1]){
+							 dec_count = dec_count[1].length-1;
+						 } else {
+							 dec_count = 0;
+						 }
+						 var grouping = true;
+						 if(dec == "none"){
+							 dec = "";
+						 }
+						 if(sep == "none"){
+							 grouping = false;
+						 } else {
+							 grouping = true;
+						 }
+						 var settings = {
+							 useEasing : true,
+							 useGrouping : grouping,
+							 separator : sep,
+							 decimal : dec
+						 };
+						 var counter = new desalitechCounterInit(ID, startValue, startDate, dec_count, speed, settings);
+						 setTimeout(function(){
+							 counter.start();
+						 },500);
+					 });
 			 });
 		 }
 	 });
@@ -179,7 +181,6 @@ function desalitechCounterInit(target, startVal, startDate, decimals, speed, opt
     // format startVal on initialization
 	var seconds = self.secondsSinceStart();
 	var initialValue = self.valueSinceStart(seconds);
-	console.log('initial value', initialValue);
     self.d.innerHTML = self.formatNumber(initialValue.toFixed(self.decimals));
 }
 // Example:

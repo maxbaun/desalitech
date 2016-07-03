@@ -66,23 +66,23 @@
     margin-top: -30px;
 }
 
-.desalitech-counter .aio-icon-img{
+/*.desalitech-counter .aio-icon-img{
     width: 95px;
     height: 95px;
-}
+}*/
 
 .desalitech-counter .aio-icon-img .img-icon{
     margin-left: 0px;
 }
 
 .desalitech-counter .stats-number {
-    font-size: 30px;
+    /*font-size: 30px;*/
     line-height: 1.3em;
     font-weight: 500;
 }
 .desalitech-counter .stats-text {
-    font-size: 24px;
-    line-height: 30px;
+    /*font-size: 24px;
+    line-height: 30px;*/
     width: 100%;
     text-align: inherit;
 }

@@ -69,7 +69,7 @@ class Desalitech_Scroll_Next {
 	 public function __construct() {
 
  		$this->plugin_name = 'desalitech-scroll-next';
- 		$this->version = '1.0.0';
+ 		$this->version = '1.1.0';
 
  		$this->load_dependencies();
  		$this->define_admin_hooks();
@@ -190,7 +190,10 @@ class Desalitech_Scroll_Next {
 			$output .= '<div class="button-container">';
 				$output .= '<a class="button" href="#" data-scroll-to="'.$scroll_to.'" data-where="'.$where.'" data-speed="'.$speed.'" style="'.$button_style.'"></a>';
 			$output .= '</div>';
-			$output .= '<span class="arrow" style="'.$pointer_style.'"></span>';
+			$output .= '<div class="arrow-container">';
+				$output .= '<span class="arrow" style="'.$pointer_style.'"></span>';
+			$output .= '</div>';
+
  		$output .= '</div>';
  		$is_preset = false; //Display settings for Preset
  		if(isset($_GET['preset'])) {

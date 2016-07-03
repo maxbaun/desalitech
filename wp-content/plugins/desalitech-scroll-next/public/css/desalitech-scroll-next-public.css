@@ -9,20 +9,33 @@
 .desalitech-scroll-to{
     position: relative;
 }
+.desalitech-scroll-to .arrow-container{
+  height: 50px;
+  width: 100px;
+  position: absolute;
+  overflow: hidden;
+  margin-left: -50px;
+  margin-right: auto;
+  left: 50%;
+  bottom: -15px;
+  z-index: 900;
+}
+
 .desalitech-scroll-to .arrow{
     display: block;
     position: absolute;
     left: 50%;
-    margin-left: -20px;
-    bottom: -10px;
+    margin-left: -35px;
+    bottom: 15px;
     transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     -o-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
-    height: 40px;
-    width: 40px;
+    height: 70px;
+    width: 70px;
     border-radius: 4px;
+    z-index: 901;
 }
 
 .desalitech-scroll-to .button-container{
@@ -37,7 +50,8 @@
     -webkit-animation:moveupdown .6s infinite alternate;
     -moz-animation:moveupdown .6s infinite alternate;
     animation:moveupdown .6s infinite alternate;
-    z-index: 9999;
+    z-index: 9970;
+    background: transparent;
 }
 
 .desalitech-scroll-to .button{
@@ -55,27 +69,30 @@
     margin-left: -35px;
     top: -35px;
     border-radius: 4px;
+    z-index: 9971;
+
 }
 .desalitech-scroll-to .button.bounce{
     bottom: 15px;
 }
 
 @-webkit-keyframes moveupdown {
-    0%, 10% { transform: translateY(0); }
+    0%, 10% { transform: translateY(5px); }
     90%, 100% { transform: translateY(-10px); }
 }
 @-moz-keyframes moveupdown {
-    0%, 10% { transform: translateY(0); }
+    0%, 10% { transform: translateY(5px); }
     90%, 100% { transform: translateY(-10px); }
 }
 @-keyframes moveupdown {
-    0%, 10% { transform: translateY(0); }
+    0%, 10% { transform: translateY(5px); }
     90%, 100% { transform: translateY(-10px); }
 }
 
 @media (max-width: 480px){
     .desalitech-scroll-to{
         height: 20px !important;
+        margin-bottom: 20px;
     }
     .desalitech-scroll-to .button-container{
         height: 30px;
@@ -83,11 +100,16 @@
         margin-left: -40px;
     }
 
+    .desalitech-scroll-to .arrow-container{
+        height: 30px;
+        width: 80px;
+        margin-left: -40px;
+    }
+
     .desalitech-scroll-to .arrow{
-        margin-left: -10px;
-        bottom: -10px;
-        height: 20px;
-        width: 20px;
+        margin-left: -20px;
+        height: 40px;
+        width: 40px;
     }
 
     .desalitech-scroll-to .button{

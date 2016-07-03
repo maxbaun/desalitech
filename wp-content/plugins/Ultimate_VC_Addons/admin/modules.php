@@ -17,6 +17,7 @@
 	}
 
 	$ultimate_modules = get_option('ultimate_modules');
+	var_dump($ultimate_modules);
 	$modules = array(
 		'Ultimate_Animation' => 'Animation Block',
 		'Ultimate_Buttons' => 'Advanced Buttons',
