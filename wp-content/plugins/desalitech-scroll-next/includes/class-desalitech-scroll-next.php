@@ -72,7 +72,6 @@ class Desalitech_Scroll_Next {
  		$this->version = '1.0.0';
 
  		$this->load_dependencies();
- 		$this->set_locale();
  		$this->define_admin_hooks();
  		$this->define_public_hooks();
 
@@ -183,16 +182,14 @@ class Desalitech_Scroll_Next {
 		$el_style .= ' background-color: ' . $background_color . ';';
 
 		$button_style = '';
-		$button_style .= ' border-top-color: ' . $button_color . ';';
-		$button_style .= ' margin-left: -' . $button_size . 'px;';
-		$button_style .= ' border-top-width: ' . $button_size . 'px;';
-		$button_style .= ' border-right-width: ' . $button_size . 'px;';
-		$button_style .= ' border-left-width: ' . $button_size . 'px;';
+		$button_style .= ' background-color: ' . $button_color . ';';
 
 		$pointer_style .= ' background-color: ' . $background_color . ';';
 
  		$output = '<div class="desalitech-scroll-to" style="'.$el_style.'">';
-			$output .= '<a class="button" href="#" data-scroll-to="'.$scroll_to.'" data-where="'.$where.'" data-speed="'.$speed.'" style="'.$button_style.'"></a>';
+			$output .= '<div class="button-container">';
+				$output .= '<a class="button" href="#" data-scroll-to="'.$scroll_to.'" data-where="'.$where.'" data-speed="'.$speed.'" style="'.$button_style.'"></a>';
+			$output .= '</div>';
 			$output .= '<span class="arrow" style="'.$pointer_style.'"></span>';
  		$output .= '</div>';
  		$is_preset = false; //Display settings for Preset
@@ -240,12 +237,6 @@ class Desalitech_Scroll_Next {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-desalitech-scroll-next-loader.php';
 
 		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-desalitech-scroll-next-i18n.php';
-
-		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-desalitech-scroll-next-admin.php';
@@ -257,23 +248,6 @@ class Desalitech_Scroll_Next {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-desalitech-scroll-next-public.php';
 
 		$this->loader = new Desalitech_Scroll_Next_Loader();
-
-	}
-
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Desalitech_Scroll_Next_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function set_locale() {
-
-		$plugin_i18n = new Desalitech_Scroll_Next_i18n();
-
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
 	}
 

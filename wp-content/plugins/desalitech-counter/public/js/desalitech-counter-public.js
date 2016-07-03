@@ -29,43 +29,45 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 	 $(document).ready(function() {
-		 $('.desalitech-counter').each(function() {
-			 $(this).bsf_appear(function() {
-				 var endNum = parseFloat(jQuery(this).find('.stats-number').data('counter-value'));
-				 var startValue = (jQuery(this).find('.stats-number').data('startValue'))+' ';
-				 var startDate = new moment((jQuery(this).find('.stats-number').data('startDate'))+' ');
-				 var speed = parseInt(jQuery(this).find('.stats-number').data('changeRate'));
-				 console.log(startValue,startDate,speed);
-				 var ID = jQuery(this).find('.stats-number').data('id');
-				 var sep = jQuery(this).find('.stats-number').data('separator');
-				 var dec = jQuery(this).find('.stats-number').data('decimal');
-				 var dec_count = startValue.split(".");
-				 if(dec_count[1]){
-					 dec_count = dec_count[1].length-1;
-				 } else {
-					 dec_count = 0;
-				 }
-				 var grouping = true;
-				 if(dec == "none"){
-					 dec = "";
-				 }
-				 if(sep == "none"){
-					 grouping = false;
-				 } else {
-					 grouping = true;
-				 }
-				 var settings = {
-					 useEasing : true,
-					 useGrouping : grouping,
-					 separator : sep,
-					 decimal : dec
-				 }
-				 var counter = new desalitechCounterInit(ID, startValue, startDate, dec_count, speed, settings);
-				 setTimeout(function(){
-					 counter.start();
-				 },500);
+		 init();
+
+		 function init(){
+			 $('.desalitech-counter').each(function() {
+					 var endNum = parseFloat(jQuery(this).find('.stats-number').data('counter-value'));
+					 var startValue = (jQuery(this).find('.stats-number').data('startValue'))+' ';
+					 var startDate = new moment((jQuery(this).find('.stats-number').data('startDate'))+' ');
+					 var speed = parseFloat(jQuery(this).find('.stats-number').data('changeRate'));
+					 var speedStr = speed.toString();
+					 var ID = jQuery(this).find('.stats-number').data('id');
+					 var sep = jQuery(this).find('.stats-number').data('separator');
+					 var dec = jQuery(this).find('.stats-number').data('decimal');
+					 var dec_count = speedStr.split(".");
+					 if(dec_count[1]){
+						 dec_count = dec_count[1].length-1;
+					 } else {
+						 dec_count = 0;
+					 }
+					 var grouping = true;
+					 if(dec == "none"){
+						 dec = "";
+					 }
+					 if(sep == "none"){
+						 grouping = false;
+					 } else {
+						 grouping = true;
+					 }
+					 var settings = {
+						 useEasing : true,
+						 useGrouping : grouping,
+						 separator : sep,
+						 decimal : dec
+					 }
+					 var counter = new desalitechCounterInit(ID, startValue, startDate, dec_count, speed, settings);
+					 setTimeout(function(){
+						 counter.start();
+					 },500);
 			 });
-		 });
+		 }
 	 });
 
 })( jQuery );

@@ -69,10 +69,9 @@ class Desalitech_Counter {
 	public function __construct() {
 
 		$this->plugin_name = 'desalitech-counter';
-		$this->version = '1.0.0';
+		$this->version = '1.2.0';
 
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
@@ -277,18 +276,6 @@ class Desalitech_Counter {
 							"description" => __("Like CSS3 Animations? We have several options for you!","ultimate_vc")
 						),
 					  array(
-						 "type" => "dropdown",
-						 "class" => "",
-						 "heading" => __("Icon Position", "ultimate_vc"),
-						 "param_name" => "icon_position",
-						 "value" => array(
-								__('Top','ultimate_vc') => 'top',
-								__('Right','ultimate_vc') => 'right',
-								__('Left','ultimate_vc') => 'left',
-								),
-						 "description" => __("Enter Position of Icon", "ultimate_vc")
-						 ),
-					  array(
 						 "type" => "textfield",
 						 "class" => "",
 						 "heading" => __("Counter Title ", "ultimate_vc"),
@@ -353,22 +340,6 @@ class Desalitech_Counter {
 							"value" => 1,
 							"description" => __("What is the rate of change per second?", "ultimate_vc")
 						),
-					  array(
-							"type" => "number",
-							"class" => "",
-							"heading" => __("Height", "ultimate_vc"),
-							"param_name" => "height",
-							"value" => 270,
-							"description" => __("Height of the counter?", "ultimate_vc")
-						),
-					  array(
-							"type" => "number",
-							"class" => "",
-							"heading" => __("Width", "ultimate_vc"),
-							"param_name" => "width",
-							"value" => 270,
-							"description" => __("Width of the counter?", "ultimate_vc")
-						),
 						array(
 							"type" => "colorpicker",
 							"param_name" => "border_color",
@@ -380,6 +351,17 @@ class Desalitech_Counter {
 							"param_name" => "border_alternate_color",
 							"heading" => __("Bordor Alternate Color","ultimate_vc"),
 							"description" => __("Select alternate border color you want for the counter.", "ultimate_vc"),
+						),
+						array(
+							"type" => "dropdown",
+							"class" => "",
+							"heading" => __("Show Dot", "ultimate_vc"),
+							"param_name" => "show_dot",
+							"value" => array(
+								__("Yes","ultimate_vc") => 'yes',
+								__("No","ultimate_vc") => 'no',
+							),
+							"description" => __("Show the dot around the border?", "ultimate_vc")
 						),
 						array(
   							"type" => "number",
@@ -401,6 +383,7 @@ class Desalitech_Counter {
 							"heading" => __("Dot Box Shadow Color","ultimate_vc"),
 							"description" => __("Select the color for the rotating dot.", "ultimate_vc"),
 						),
+
 
 					 //  array(
 						// 	"type" => "number",
@@ -677,14 +660,12 @@ class Desalitech_Counter {
 		//wp_enqueue_script('ultimate-custom');
 		//wp_enqueue_script('front-js',plugins_url('../assets/min-js/countUp.min.js',__FILE__));
 
-		$icon_type = $icon_img = $img_width = $icon = $icon_color = $icon_color_bg = $icon_size = $icon_style = $icon_border_style = $icon_border_radius = $icon_color_border = $icon_border_size = $icon_border_spacing = $icon_link = $el_class = $icon_animation = $counter_title = $initial_start_value = $icon_position = $counter_style = $font_size_title = $font_size_counter = $counter_font = $title_font = $change_rate = $initial_start_date = $counter_sep = $counter_suffix = $counter_prefix = $counter_decimal = $counter_color_txt = $desc_font_line_height = $title_font_line_height = '';
+		$icon_type = $icon_img = $img_width = $icon = $icon_color = $icon_color_bg = $icon_size = $icon_style = $icon_border_style = $icon_border_radius = $icon_color_border = $icon_border_size = $icon_border_spacing = $icon_link = $el_class = $icon_animation = $counter_title = $initial_start_value = $counter_style = $font_size_title = $font_size_counter = $counter_font = $title_font = $change_rate = $initial_start_date = $counter_sep = $counter_suffix = $counter_prefix = $counter_decimal = $counter_color_txt = $desc_font_line_height = $title_font_line_height = '';
 		$title_font = $title_font_style = $title_font_size = $title_font_color = $desc_font = $desc_font_style = $desc_font_size = $desc_font_color = $suf_pref_typography = $suf_pref_font = $suf_pref_font_style = $suf_pref_font_color = $suf_pref_font_size = $suf_pref_line_height = '';
 		extract(shortcode_atts( array(
 			'icon_type' => 'selector',
 			'icon' => '',
 			'icon_img' => '',
-			'height' => '270',
-			'width' => '270',
 			'img_width' => '48',
 			'icon_size' => '32',
 			'icon_color' => '#333333',
@@ -705,7 +686,6 @@ class Desalitech_Counter {
 			'counter_suffix' => '',
 			'counter_prefix' => '',
 			'counter_decimal' => '.',
-			'icon_position'=>'top',
 			'counter_style'=>'',
 			'font_size_title' => '18',
 			'font_size_counter' => '28',
@@ -727,10 +707,12 @@ class Desalitech_Counter {
 			'suf_pref_font_style' =>'',
 			'css_stat_counter' => '',
 			'border_color' => '',
+			'icon_position'=>'top',
 			'border_alternate_color' => '',
 			'border_width' => '1',
 			'dot_color' => '',
 			'dot_box_shadow_color' => '10',
+			'show_dot' => 'yes',
 		),$atts));
 		$css_stat_counter = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $css_stat_counter, ' ' ), "stat_counter", $atts );
 		$css_stat_counter = esc_attr( $css_stat_counter );
@@ -842,8 +824,6 @@ class Desalitech_Counter {
 		if($suf_pref_font_style != '')
 			$suf_pref_style .= get_ultimate_font_style($suf_pref_font_style);
 
-		// $suf_pref_style .= 'font-size:'.$suf_pref_font_size.'px;';
-		// $suf_pref_style .='line-height:'.$suf_pref_line_height.'px;';
 
 		// Responsive param
 
@@ -892,15 +872,6 @@ class Desalitech_Counter {
 			$border_style .= ' border-left-color: ' . $border_color . ';';
 		}
 
-		// $delay = rand(0, 10) / 10;
-		// $border_style .= '
-		// 	animation-delay: '.$delay.'s;
-		// 	-moz-animation-delay: '.$delay.'s;
-		// 	-webkit-animation-delay: '.$delay.'s;
-		// ';
-
-
-
 		$dot_style = '';
 		if(isset($dot_color) && $dot_color != ''){
 			$dot_style .= ' background-color: ' . $dot_color . ';';
@@ -912,17 +883,14 @@ class Desalitech_Counter {
 			';
 		}
 
-		$el_style .= ' width: ' . $width . 'px; height: ' . $height . 'px; ';
-
 		$output = '<div class="desalitech-counter '.$ic_position.' '.$class.' '.$css_stat_counter.'" style="'.$el_style.'">';
 			$output .= '<div class="border-container">';
 				$output .= '<div class="border" style="'.$border_style.'">';
-					$output .= '<span class="dot" style="'.$dot_style.'"></span>';
+					if(isset($show_dot) && $show_dot == 'yes'){
+						$output .= '<span class="dot" style="'.$dot_style.'"></span>';
+					}
 				$output .= '</div>';
 			$output .= '</div>';
-			//$output .= '<div class="stats-icon" style="'.$style.'">
-			//				<i class="'.$stats_icon.'"></i>
-			//			</div>';
 			$output .= '<div class="vertical-center">';
 				$id = 'counter_'.uniqid(rand());
 				if($counter_sep == ""){
@@ -931,8 +899,7 @@ class Desalitech_Counter {
 				if($counter_decimal == ""){
 					$counter_decimal = 'none';
 				}
-				if($icon_position !== "right")
-					$output .= '<div class="'.$ic_class.'">'.$stats_icon.'</div>';
+				$output .= '<div class="'.$ic_class.'">'.$stats_icon.'</div>';
 				$output .= '<div class="stats-desc" id="'.$counter_resp_id.'">';
 					if($counter_prefix !== ''){
 						$output .= '<div class="counter_prefix mycust ult-responsive" '.$stats_counter_sufpref_data_list.' style="'.$counter_font.' '.$suf_pref_style.'">'.$counter_prefix.'</div>';
@@ -943,8 +910,6 @@ class Desalitech_Counter {
 					}
 					$output .= '<div '.$counter_resp_id.' '.$stats_counter_data_list.' class="stats-text ult-responsive" style="'.$title_font.' '.$counter_color.' '.$title_style.'">'.$counter_title.'</div>';
 				$output .= '</div>';
-				if($icon_position == "right")
-					$output .= '<div class="'.$ic_class.'">'.$stats_icon.'</div>';
 			$output .= '</div>';
 		$output .= '</div>';
 		$is_preset = false; //Display settings for Preset
@@ -973,7 +938,6 @@ class Desalitech_Counter {
 	 * Include the following files that make up the plugin:
 	 *
 	 * - Desalitech_Counter_Loader. Orchestrates the hooks of the plugin.
-	 * - Desalitech_Counter_i18n. Defines internationalization functionality.
 	 * - Desalitech_Counter_Admin. Defines all hooks for the admin area.
 	 * - Desalitech_Counter_Public. Defines all hooks for the public side of the site.
 	 *
@@ -992,12 +956,6 @@ class Desalitech_Counter {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-desalitech-counter-loader.php';
 
 		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-desalitech-counter-i18n.php';
-
-		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-desalitech-counter-admin.php';
@@ -1009,40 +967,6 @@ class Desalitech_Counter {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-desalitech-counter-public.php';
 
 		$this->loader = new Desalitech_Counter_Loader();
-
-	}
-
-	function hex2rgb($hex) {
-	   $hex = str_replace("#", "", $hex);
-
-	   if(strlen($hex) == 3) {
-	      $r = hexdec(substr($hex,0,1).substr($hex,0,1));
-	      $g = hexdec(substr($hex,1,1).substr($hex,1,1));
-	      $b = hexdec(substr($hex,2,1).substr($hex,2,1));
-	   } else {
-	      $r = hexdec(substr($hex,0,2));
-	      $g = hexdec(substr($hex,2,2));
-	      $b = hexdec(substr($hex,4,2));
-	   }
-	   $rgb = array($r, $g, $b);
-	   //return implode(",", $rgb); // returns the rgb values separated by commas
-	   return $rgb; // returns an array with the rgb values
-	}
-
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Desalitech_Counter_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function set_locale() {
-
-		$plugin_i18n = new Desalitech_Counter_i18n();
-
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
 	}
 
